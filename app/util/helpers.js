@@ -74,10 +74,10 @@ var forEach = (arr, cb, ctx) => {
 }
 
 /** [method] clone
- * A mix of solutions from:
- * http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object/13333781#13333781
- * http://coffeescriptcookbook.com/chapters/classes_and_objects/cloning
- */
+  * A mix of solutions from:
+  * http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object/13333781#13333781
+  * http://coffeescriptcookbook.com/chapters/classes_and_objects/cloning
+  */
 {
 	let objectCreate = Object.create;
 	if (typeof objectCreate !== 'function')
@@ -137,46 +137,57 @@ var forEach = (arr, cb, ctx) => {
 		return result;
 	}
 }
-// # [method] documentReady
-// # Executes a function on document ready
-// # Borrowed from:
-// # http://stackoverflow.com/a/9899701/1161897
-// readyList = []
-// readyFired = false
-// readyBound = false
-// _ready = ->
-// 	return if readyFired
-// 	readyFired = true
-// 	for listItem in readyList
-// 		context = if listItem.hasOwnProperty? and listItem.hasOwnProperty('ctx') then listItem.ctx else window
-// 		listItem.fn.call context
-// 	readyList = []
-// _documentReady = (callback, context) ->
-// 	# if ready has already fired, then just schedule the callback
-// 	# to fire asynchronously, but right away
-// 	if readyFired
-// 		setTimeout ->
-// 			callback.call context
-// 		, 1
-// 	# else add the function and context to the list
-// 	else
-// 		listItem = {}
-// 		listItem.fn = callback
-// 		listItem.ctx = context if type(context) isnt undefined
-// 		readyList.push listItem
-// 	# if document already ready to go, schedule the ready function to run
-// 	if document.readyState is 'complete'
-// 		setTimeout _ready, 1
-// 	# if document isn't ready and the ready event listeners haven't been bound
-// 	else if not readyBound
-// 		if document.addEventListener
-// 			# first choice is DOMContentLoaded event
-// 			document.addEventListener "DOMContentLoaded", _ready, false
-// 			# backup is window load event
-// 			window.addEventListener "load", _ready, false
-// 		readyBound = true
 
+/** [method] documentReady
+  * Executes a function on document ready
+  * Borrowed from:
+  * http://stackoverflow.com/a/9899701/1161897
+  */
+{
+	let readyList = [];
+	let readyFired = false;
+	let readyBound = false;
+	let _ready = ()=> {
+		if (readyFired) return;
+		readyFired = true;
+		for (let listItem of readyList) {
+			let context = (exists(listItem.hasOwnProperty) && listItem.hasOwnProperty('ctx')) ? listItem.ctx : window; 
+			listItem.fn.call(context);
+		}
+		readyList = [];
+	}
+	var _documentReady = (callback, context) => {
+		var type = _type;
+		// if ready has already fired, then just schedule the callback
+		// to fire asynchronously, but right away
+		if (readyFired) {
+			setTimeout(function() {
+				callback.call(context);
+			}, 1);
+		}
+		// else add the function and context to the list
+		else {
+			let listItem = {};
+			listItem.fn = callback;
+			if (type(context) !== 'undefined') listItem.ctx = context;
+			readyList.push(listItem);
+		}
 
+		// if document already ready to go, schedule the ready function to run
+		if (document.readyState === 'complete')
+			setTimeout(_ready, 1);
+		// if document isn't ready and the ready event listeners haven't been bound
+		else if (!readyBound) {
+			if (document.addEventListener) {
+				// first choice is DOMContentLoaded event
+				document.addEventListener("DOMContentLoaded", _ready, false);
+				// backup is window load event
+				window.addEventListener("load", _ready, false);
+			}
+			readyBound = true;
+		}
+	}
+}
 // Bundle helper methods for export
 var Helpers = {
 	isEmpty: (...args) => {
@@ -189,8 +200,9 @@ var Helpers = {
 	clone: (...args) => {
 		return _clone.apply(this, args);
 	},
-	// documentReady: (args...) ->
-	// 	_documentReady.apply @, args
+	documentReady: (...args) => {
+		_documentReady.apply(this, args);
+	},
 
 	exists: (...args) => {
 		return exists.apply(this, args);
