@@ -1,0 +1,24 @@
+{
+  "name": "es6-react-boilerplate",
+  "version": "0.1.0",
+  "description": "A boilerplate for React with Brunch",
+  "main": "app.js",
+  "scripts": {
+    "install": "bower install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": false,
+  "authors": [
+    "Chi-chi Wang <chichi.wang@ignitioncreative.com>"
+  ],
+  "dependencies": {
+    "brunch": "*",
+    "babel-brunch": "*",
+    "auto-reload-brunch": "*",
+    "css-brunch": "*",
+    "stylus-brunch": "*",
+    "javascript-brunch": "*",
+    "uglify-js-brunch": "*"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,19 @@
+{
+  "name": "react-brunch-boilerplate",
+  "version": "0.0.0",
+  "description": "A boilerplate for React with Brunch",
+  "main": "public/javascripts/app.js",
+  "private": true,
+  "dependencies": {
+    "console-polyfill": "~0.1.0",
+    "normalize-css": "~2.1.2",
+    "react": "*",
+    "javascript-state-machine": "~2.3.0",
+    "react-router": "~0.11.6"
+  },
+  "overrides": {
+    "react": {
+      "main": "react-with-addons.min.js"
+    }
+  }
+}
