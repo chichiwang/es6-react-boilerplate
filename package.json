@@ -12,12 +12,13 @@
     "Chi-chi Wang <chichi.wang@ignitioncreative.com>"
   ],
   "dependencies": {
-    "brunch": "*",
-    "babel-brunch": "*",
     "auto-reload-brunch": "*",
+    "babel-brunch": "*",
+    "brunch": "*",
     "css-brunch": "*",
-    "stylus-brunch": "*",
     "javascript-brunch": "*",
+    "react-brunch": "^1.0.9",
+    "stylus-brunch": "*",
     "uglify-js-brunch": "*"
   },
   "devDependencies": {}

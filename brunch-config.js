@@ -1,9 +1,12 @@
 exports.config = {
-	// plugins: {
-	// 	react: {
-	// 		autoIncludeCommentBlock: yes
-	// 	}
-	// },
+	plugins: {
+		react: {
+			transformOptions: {
+				sourceMap: 'yes'
+			},
+			babel: true
+		}
+	},
 	files: {
 		javascripts: {
 			joinTo: {
