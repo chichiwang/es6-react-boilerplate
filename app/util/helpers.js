@@ -188,9 +188,16 @@ var Helpers = {
 	
 	clone: (...args) => {
 		return _clone.apply(this, args);
-	}
+	},
 	// documentReady: (args...) ->
 	// 	_documentReady.apply @, args
+
+	exists: (...args) => {
+		return exists.apply(this, args);
+	},
+	forEach: (...args) => {
+		return forEach.apply(this, args);
+	}
 };
 
 module.exports = Helpers;
